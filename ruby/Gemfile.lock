@@ -1,0 +1,22 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    addressable (2.3.8)
+    http (0.8.3)
+      addressable (~> 2.3)
+      http-form_data (~> 1.0.1)
+      http_parser.rb (~> 0.6.0)
+    http-form_data (1.0.1)
+    http_parser.rb (0.6.0)
+    mini_portile (0.6.2)
+    nokogiri (1.6.6.2)
+      mini_portile (~> 0.6.0)
+    syslogger (1.6.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  http
+  nokogiri
+  syslogger

@@ -1,0 +1,5 @@
+Vagrantfile
+.vagrant
+javascript/node_modules
+perl
+go

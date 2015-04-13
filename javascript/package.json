@@ -1,0 +1,10 @@
+{
+  "name": "revtt-rss",
+  "main": "./rss.js",
+  "dependencies": {
+    "xml2js": "~0.4.5",
+    "lodash": "~3.3.1",
+    "node-syslog": "~1.1.7",
+    "klass": "~1.3.1"
+  }
+}
