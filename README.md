@@ -86,6 +86,15 @@ $ npm install
 $ node rss.js
 ```
 
+## Elixir
+
+```
+$ cd revtt-rss/elixir
+$ mix deps.get
+$ mix escript.build
+$ ./revttrss
+```
+
 ## Perl
 
 ```
