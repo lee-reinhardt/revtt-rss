@@ -11,7 +11,7 @@ defmodule RevttRSS do
   end
 
   def load_list(file_name) do
-    file_name |> load_file |> String.split("\n")
+    file_name |> load_file |> String.split("\n") |> Enum.filter(fn(item) -> item != "" end)
   end
 
   def fetch do
@@ -45,8 +45,9 @@ defmodule RevttRSS do
   end
 
   def download(item) do
-    resp = HTTPoison.get!(item.link)
-    File.write!("/Users/lee/Downloads/#{item.title}.torrent", resp.body)
+    config = load_config
+    resp   = HTTPoison.get!(item.link)
+    File.write!("#{config["save_dir"]}/#{item.title}.torrent", resp.body)
   end
 
   def add_to_history(item) do
@@ -73,12 +74,12 @@ defmodule RevttRSS do
     |> Enum.map(fn(item) ->
       {{_, _, title}, _} = List.keytake(item, "title", 0)
       {{_, _, link}, _}  = List.keytake(item, "link", 0)
-      %{:title => List.first(title), :link => List.first(link)}
+      %{title: List.first(title), link: List.first(link)}
     end)
-    |> Enum.filter(fn(item) -> is_good item.title, good end)
-    |> Enum.filter(fn(item) -> not is_bad item.title, bad end)
-    |> Enum.filter(fn(item) -> not in_history item.title, history end)
-    |> Enum.map(fn(item) ->
+    |> Stream.filter(fn(item) -> is_good(item.title, good) end)
+    |> Stream.filter(fn(item) -> not is_bad(item.title, bad) end)
+    |> Stream.filter(fn(item) -> not in_history(item.title, history) end)
+    |> Stream.map(fn(item) ->
       download(item)
       item
     end)
